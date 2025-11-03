@@ -1,0 +1,89 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+gitignore
+# =========================================
+# Android Studio / IntelliJ
+# =========================================
+
+# Lokale Konfigurationsdateien (benutzerspezifisch)
+.idea/
+.gradle/
+local.properties
+
+# Build-Verzeichnisse (generierte Dateien)
+build/
+app/build/
+
+# Log-Dateien
+*.log
+
+# Test-Ergebnisse
+/build/reports/
+/build/test-results/
+
+# APKs, AABs und andere Build-Artefakte
+*.apk
+*.aab
+*.ap_
+*.a_
+*.dex
+*.smp
+/captures/
+
+# Generierte Dateien für Gradle
+.DS_Store
+.cxx/
+*.iml
+*.hprof
+*.pyc
+
+# Google Services (lokal generiert)
+app/google-services.json
+
+# Secrets & sensible Daten
+# Falls du API-Keys oder andere Geheimnisse in einer secrets.properties hast
+secrets.properties
+
+# Android Studio Profiling-Daten
+*.exec
+*.ec
+
+# Gradle-Cache
+.gradle/
+build-cache/
+
+# =========================================
+# Spezifisch für Jetpack Compose
+# =========================================
+
+# Compose Preview-Dateien
+.compose/
+*preview*.png
+
+# =========================================
+# Betriebssystem-Dateien (macOS, Windows)
+# =========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini

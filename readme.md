@@ -1,6 +1,6 @@
 # Ultra Minimal Launcher
 
-A simple, custom Android launcher application built with Jetpack Compose inspired by Olauncher.
+A simple, custom Android launcher application built with Jetpack Compose.
 
 ## Features
 
@@ -9,6 +9,10 @@ A simple, custom Android launcher application built with Jetpack Compose inspire
 *   **Locale-Aware Formatting:** The time and date format automatically adjusts based on your device's system language.
     *   **German (de):** `HH:mm` (24-hour) and `dd.MM.yyyy`.
     *   **Other languages:** `h:mm a` (12-hour with AM/PM) and `MM/dd/yyyy`.
+*   **Quick Actions with Gestures:**
+    *   **Swipe Right:** Opens the camera app.
+    *   **Swipe Left:** Opens the phone/dialer app.
+    *   **Long Press:** Opens the app grid to see all your installed applications.
 
 ## How to Use
 
@@ -21,4 +25,4 @@ You will now see the Ultra Minimal Launcher home screen with the digital clock.
 
 ## Screenshot
 
-![](launcher.png)
+![Here you can add a description for your image.](path/to/your/image.png)

@@ -147,5 +147,5 @@ public fun loadInstalledApps(context: Context): List<AppInfo> {
             )
         )
     }
-    return apps.sortedBy { it.label }
+    return apps.distinctBy { it.packageName }.sortedBy { it.label.lowercase() }
 }

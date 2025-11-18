@@ -66,9 +66,9 @@ fun AppList(
                             val updatesFavorites = currentFavorites + appToAdd
                             coroutineScope.launch {
                                 settingsManager.saveAppList(updatesFavorites)
+                                events.onScreenChangeToHome()
                             }
                             Toast.makeText(context, "${appToAdd.label} zu Favoriten hinzugefügt", Toast.LENGTH_SHORT).show()
-                            events.onScreenChangeToHome()
                         }
                     }, events = events
                 )

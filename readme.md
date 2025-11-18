@@ -25,4 +25,4 @@ You will now see the Ultra Minimal Launcher home screen with the digital clock.
 
 ## Screenshot
 
-![Here you can add a description for your image.](path/to/your/image.png)
+![](launcher.png)

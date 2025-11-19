@@ -1,4 +1,4 @@
-package com.example.mylauncher
+package com.kittel.ultraminimallauncher
 
 import android.content.ContentUris
 import android.content.Context
@@ -23,10 +23,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.example.mylauncher.components.DefaultScreen
-import com.example.mylauncher.components.Screen
-import com.example.mylauncher.components.SetupScreen
-import com.example.mylauncher.ui.theme.MyLauncherTheme
+import com.kittel.ultraminimallauncher.components.DefaultScreen
+import com.kittel.ultraminimallauncher.components.Screen
+import com.kittel.ultraminimallauncher.components.SetupScreen
+import com.kittel.ultraminimallauncher.ui.theme.MyLauncherTheme
 
 
 class MainActivity : ComponentActivity() {

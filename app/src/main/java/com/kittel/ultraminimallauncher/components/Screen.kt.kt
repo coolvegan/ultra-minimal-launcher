@@ -1,4 +1,4 @@
-package com.example.mylauncher.components
+package com.kittel.ultraminimallauncher.components
 
 
 enum class Screen {

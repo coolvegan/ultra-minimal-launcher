@@ -1,14 +1,10 @@
-package com.example.mylauncher.components
+package com.kittel.ultraminimallauncher.components
 
-import com.example.mylauncher.SettingsManager
+import com.kittel.ultraminimallauncher.SettingsManager
 import android.content.Context
-import android.content.Intent
-import android.provider.AlarmClock
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,8 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
-import com.example.mylauncher.Events
-import com.example.mylauncher.LocalAppList
+import com.kittel.ultraminimallauncher.Events
+import com.kittel.ultraminimallauncher.LocalAppList
 import kotlinx.coroutines.launch
 
 @Composable

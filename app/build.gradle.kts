@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mylauncher"
+    namespace = "com.kittel.ultraminimallauncher"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.mylauncher"
+        applicationId = "com.kittel.ultraminimallauncher"
         minSdk = 33
         targetSdk = 36
         versionCode = 1

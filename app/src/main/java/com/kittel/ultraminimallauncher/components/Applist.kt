@@ -1,4 +1,4 @@
-package com.example.mylauncher.components
+package com.kittel.ultraminimallauncher.components
 
 import android.content.Context
 import android.content.Intent
@@ -28,8 +28,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import com.example.mylauncher.Events
-import com.example.mylauncher.SettingsManager
+import com.kittel.ultraminimallauncher.Events
+import com.kittel.ultraminimallauncher.SettingsManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

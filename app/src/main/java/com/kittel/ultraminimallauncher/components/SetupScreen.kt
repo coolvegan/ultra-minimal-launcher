@@ -1,4 +1,4 @@
-package com.example.mylauncher.components
+package com.kittel.ultraminimallauncher.components
 
 import android.content.Context
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -22,8 +22,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import com.example.mylauncher.Events
-import com.example.mylauncher.SettingsManager
+import com.kittel.ultraminimallauncher.Events
+import com.kittel.ultraminimallauncher.SettingsManager
 
 
 @Composable

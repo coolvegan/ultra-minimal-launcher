@@ -1,6 +1,6 @@
-package com.example.mylauncher
+package com.kittel.ultraminimallauncher
 
 import androidx.compose.runtime.compositionLocalOf
-import com.example.mylauncher.components.AppInfo
+import com.kittel.ultraminimallauncher.components.AppInfo
 
 val LocalAppList = compositionLocalOf<List<AppInfo>> { error("No AppList provided") }

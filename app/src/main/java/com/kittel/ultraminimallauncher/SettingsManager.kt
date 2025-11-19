@@ -1,4 +1,4 @@
-package com.example.mylauncher
+package com.kittel.ultraminimallauncher
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.mylauncher.components.AppInfo
+import com.kittel.ultraminimallauncher.components.AppInfo
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow

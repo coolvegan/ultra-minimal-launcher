@@ -1,4 +1,4 @@
-package com.example.mylauncher.ui.theme
+package com.kittel.ultraminimallauncher.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme

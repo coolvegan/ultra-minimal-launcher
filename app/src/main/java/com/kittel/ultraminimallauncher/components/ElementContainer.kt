@@ -1,8 +1,6 @@
-package com.example.mylauncher.components
+package com.kittel.ultraminimallauncher.components
 
 import android.content.Context
-import android.widget.Toast
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,7 +26,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.mylauncher.LocalAppList
+import com.kittel.ultraminimallauncher.LocalAppList
 import androidx.compose.runtime.key
 
 

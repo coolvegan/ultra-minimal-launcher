@@ -1,4 +1,4 @@
-package com.example.mylauncher
+package com.kittel.ultraminimallauncher
 
 import org.junit.Test
 

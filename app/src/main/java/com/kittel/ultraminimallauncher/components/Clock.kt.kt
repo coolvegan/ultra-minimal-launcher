@@ -1,4 +1,4 @@
-package com.example.mylauncher.components
+package com.kittel.ultraminimallauncher.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme

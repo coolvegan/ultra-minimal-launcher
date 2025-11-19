@@ -3,10 +3,12 @@ package com.example.mylauncher.components
 import com.example.mylauncher.SettingsManager
 import android.content.Context
 import android.content.Intent
+import android.provider.AlarmClock
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -55,20 +57,9 @@ fun DefaultScreen(context : Context, events: Events){
                         },
                         onDragEnd = {
                             if (dragInitVal > swipeAmount.toPx()){
-                                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                                try {
-                                    context.startActivity(cameraIntent)
-                                } catch (e: Exception) {
-                                    Toast.makeText(context, "Kamera konnte nicht gestartet werden", Toast.LENGTH_SHORT).show()
-                                }
+                                events.onSwipeRight()
                             } else if (dragInitVal < -swipeAmount.toPx()){
-                               val telephone = Intent(Intent.ACTION_DIAL)
-                               try {
-                                   context.startActivity(telephone)
-                               } catch (e: Exception) {
-                                   Toast.makeText(context, "Telefon konnte nicht gestartet werden", Toast.LENGTH_SHORT).show()
-
-                               }
+                                events.onSwipeLeft()
                             }
                         }
                     )
@@ -76,7 +67,15 @@ fun DefaultScreen(context : Context, events: Events){
         ) {
             Spacer(modifier = Modifier.height(64.dp))
             Clock(
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier.align(Alignment.CenterHorizontally).pointerInput(Unit){
+                    detectTapGestures(onTap = {
+                        events.onStartClock()
+                    }, onDoubleTap = {
+                        events.onStartTimer()
+                    }, onLongPress = {
+                        events.onStartCalendar()
+                    })
+                }
             )
             Spacer(modifier = Modifier.height(64.dp))
             ElementContainer(context,

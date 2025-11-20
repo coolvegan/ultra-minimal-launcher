@@ -1,3 +1,5 @@
+import java.util.Properties
+import java.io.FileInputStream
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,6 +9,23 @@ plugins {
 android {
     namespace = "com.kittel.ultraminimallauncher"
     compileSdk = 36
+
+    val localPropertiesFile = rootProject.file("local.properties")
+    val localProperties = Properties()
+    if (localPropertiesFile.exists()) {
+        localProperties.load(FileInputStream(localPropertiesFile))
+    }
+
+    signingConfigs {
+        create("release") {
+            if (localProperties.containsKey("keystore.file")) {
+                storeFile = file(localProperties.getProperty("keystore.file"))
+                storePassword = localProperties.getProperty("keystore.password")
+                keyAlias = localProperties.getProperty("key.alias")
+                keyPassword = localProperties.getProperty("key.password")
+            }
+        }
+    }
 
     defaultConfig {
         applicationId = "com.kittel.ultraminimallauncher"
@@ -24,11 +43,12 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {

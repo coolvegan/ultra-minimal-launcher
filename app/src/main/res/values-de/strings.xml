@@ -11,4 +11,5 @@
     <string name="could_not_be_started">%s konnte nicht gestartet werden.</string>
     <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
     <string name="remove_from_favorites">"Aus Favoriten entfernen"</string>
+    <string name="add_as_default_launcher">Als Standard-Launcher hinzufügen</string>
 </resources>

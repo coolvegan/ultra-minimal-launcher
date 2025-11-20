@@ -1,5 +1,6 @@
 package com.kittel.ultraminimallauncher.components
 
+import androidx.compose.animation.core.copy
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -29,7 +32,7 @@ fun AppElement(
     appInfo: AppInfo,
     onAppClick: (String) -> Unit,
     onRemoveFavorite: (AppInfo) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 )  {
     var isMenuVisible by remember { mutableStateOf(false) }
     Box(modifier = Modifier) {
@@ -55,16 +58,24 @@ fun AppElement(
             )
         }
     }
-    DropdownMenu(
-        expanded = isMenuVisible,
-        onDismissRequest = { isMenuVisible = false}
-    ) {
-        DropdownMenuItem(
-            text = { Text(text = stringResource(R.string.remove_from_favorites)) },
-            onClick = {
-                onRemoveFavorite(appInfo)
-                isMenuVisible = false
-            }
+    MaterialTheme(
+        colorScheme = MaterialTheme.colorScheme.copy(
+            surfaceContainer = Color.Black.copy(alpha = 0.8f)
         )
+    ) {
+        DropdownMenu(
+            expanded = isMenuVisible,
+            onDismissRequest = { isMenuVisible = false},
+
+
+        ) {
+            DropdownMenuItem(
+                text = { Text(text = stringResource(R.string.remove_from_favorites)) },
+                onClick = {
+                    onRemoveFavorite(appInfo)
+                    isMenuVisible = false
+                }
+            )
+        }
     }
 }

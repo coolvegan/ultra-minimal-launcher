@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -117,19 +118,25 @@ private fun AppListItem(
         // Hole die Bildschirmkonfiguration
         val configuration = LocalConfiguration.current
         val screenWidth = configuration.screenWidthDp.dp
-        DropdownMenu(
-            expanded = isMenuVisible,
-            onDismissRequest = { isMenuVisible = false },
-            offset = DpOffset(x = screenWidth / 2, y = 0.dp),
-            modifier = Modifier.background(MaterialTheme.colorScheme.surface)
-        ) {
-            DropdownMenuItem(
-                text = { Text(context.getString(R.string.add_to_favorites)) },
-                onClick = {
-                    onAddToFavorites()
-                    isMenuVisible = false
-                }
+        MaterialTheme (
+            colorScheme = MaterialTheme.colorScheme.copy(
+                surfaceContainer = Color.Black.copy(alpha = 0.8f)
             )
+        ) {
+            DropdownMenu(
+                expanded = isMenuVisible,
+                onDismissRequest = { isMenuVisible = false },
+                offset = DpOffset(x = screenWidth / 2, y = 0.dp),
+                modifier = Modifier.background(MaterialTheme.colorScheme.surface)
+            ) {
+                DropdownMenuItem(
+                    text = { Text(context.getString(R.string.add_to_favorites)) },
+                    onClick = {
+                        onAddToFavorites()
+                        isMenuVisible = false
+                    }
+                )
+            }
         }
     }
 }

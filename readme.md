@@ -8,14 +8,17 @@ A simple, custom Android launcher application built with Jetpack Compose.
 *   **Digital Clock:** Displays the current time and date, respecting your device's locale for formatting.
 *   **Favorite Apps:** Pin your most-used apps to the home screen for quick access.
 *   **App Drawer:** Access a simple, searchable list of all your installed applications.
-*   **Gesture Navigation & Shortcuts:**
-    *   **Swipe Right on Home Screen:** Opens the camera app.
-    *   **Swipe Left on Home Screen:** Opens the phone/dialer app.
-    *   **Long Press on Home Screen:** Opens the app drawer to add favorites.
-    *   **Long Press on a Favorite App:** Opens a dialog to remove the app from your favorites.
-    *   **Tap on Clock:** Opens the default clock application.
-    *   **Double Tap on Clock:** Opens the timer or stopwatch.
-    *   **Long Press on Clock:** Opens the calendar application.
+*   **Default Launcher Prompt:** If the app isn't your default launcher, it will gently remind you with a pulsating message. Tapping it will take you directly to the system settings to change it.
+
+## Gesture Navigation & Shortcuts
+
+*   **Swipe Up on Home Screen:** Opens the app drawer to see all your apps and add new favorites.
+*   **Swipe Right on Home Screen:** Opens the camera app.
+*   **Swipe Left on Home Screen:** Opens the phone/dialer app.
+*   **Long Press on a Favorite App:** Opens a dialog to remove the app from your favorites.
+*   **Tap on Clock:** Opens the default clock application.
+*   **Double Tap on Clock:** Opens the timer or stopwatch.
+*   **Long Press on Clock:** Opens the calendar application.
 
 ## How to Use
 

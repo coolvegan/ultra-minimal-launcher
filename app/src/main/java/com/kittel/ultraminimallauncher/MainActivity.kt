@@ -1,5 +1,8 @@
 package com.kittel.ultraminimallauncher
 
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
@@ -16,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.kittel.ultraminimallauncher.components.ConfigScreen
 import com.kittel.ultraminimallauncher.components.DefaultScreen
 import com.kittel.ultraminimallauncher.components.Screen
 import com.kittel.ultraminimallauncher.components.SetupScreen
@@ -78,5 +82,7 @@ fun HomeScreen(currentScreen: Screen, onScreenChange: (Screen) -> Unit) {
     when (currentScreen) {
         Screen.Home ->  DefaultScreen(context, events)
         Screen.AppGrid -> SetupScreen(context, events)
+        Screen.Config -> ConfigScreen(context, events)
     }
 }
+

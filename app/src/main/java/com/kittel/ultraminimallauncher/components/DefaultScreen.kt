@@ -61,49 +61,45 @@ fun DefaultScreen(context : Context, events: Events, settingsManager: SettingsMa
                 .fillMaxSize()
                 .padding(horizontal = 8.dp)
                 .pointerInput(Unit) {
-                    coroutineScope {
-                        launch {
-                            detectHorizontalDragGestures(
-                                onDragStart = {
-                                    dragXAxisInitVal = 0f
-                                },
-                                onHorizontalDrag = { change, dragAmount ->
-                                    dragXAxisInitVal += dragAmount
-                                    change.consume()
-                                },
-                                onDragEnd = {
-                                    if (dragXAxisInitVal > swipeXAxisAmount.toPx()) {
-                                        events.onSwipeRight()
-                                    } else if (dragXAxisInitVal < -swipeXAxisAmount.toPx()) {
-                                        events.onSwipeLeft()
-                                    }
-                                }
-                            )
+                    detectHorizontalDragGestures(
+                        onDragStart = {
+                            dragXAxisInitVal = 0f
+                        },
+                        onHorizontalDrag = { change, dragAmount ->
+                            dragXAxisInitVal += dragAmount
+                            change.consume()
+                        },
+                        onDragEnd = {
+                            if (dragXAxisInitVal > swipeXAxisAmount.toPx()) {
+                                events.onSwipeRight()
+                            } else if (dragXAxisInitVal < -swipeXAxisAmount.toPx()) {
+                                events.onSwipeLeft()
+                            }
                         }
-                        launch {
-                            detectVerticalDragGestures(
-                                onDragStart = {
-                                    dragYAxisInitVal = 0f
-                                },
-                                onVerticalDrag = { change, dragAmount ->
-                                    dragYAxisInitVal += dragAmount
-                                    change.consume()
-                                },
-                                onDragEnd = {
-                                    if (dragYAxisInitVal < -swipeYAxisAmount.toPx()) {
-                                        events.onScreenChangeToAppGrid()
-                                    }
-                                }
-                            )
+                    )
+                }
+                .pointerInput(Unit){
+                    detectVerticalDragGestures(
+                        onDragStart = {
+                            dragYAxisInitVal = 0f
+                        },
+                        onVerticalDrag = { change, dragAmount ->
+                            dragYAxisInitVal += dragAmount
+                            change.consume()
+                        },
+                        onDragEnd = {
+                            if (dragYAxisInitVal < -swipeYAxisAmount.toPx()) {
+                                events.onScreenChangeToAppGrid()
+                            }
                         }
-                        launch {
-                            detectTapGestures(
-                                onLongPress = {
-                                    events.onScreenChangeToConfig()
-                                }
-                            )
+                    )
+                }
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onLongPress = {
+                            events.onScreenChangeToConfig()
                         }
-                    }
+                    )
                 }
         ) {
             Spacer(modifier = Modifier.height(64.dp))
@@ -121,7 +117,7 @@ fun DefaultScreen(context : Context, events: Events, settingsManager: SettingsMa
                     },
                 settingsManager
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(64.dp))
             AppElementContainer(context,
                 onRemoveFavorite = { appToRemove -> events.onRemoveFavorite(appToRemove , appsToDisplay, settingsManager,coroutineScope) },
                 onAppClick = events.onStartApp,

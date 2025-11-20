@@ -28,7 +28,7 @@ fun startClock(context: Context) {
     try {
         context.startActivity(clockIntent)
     } catch (e: Exception) {
-        Toast.makeText(context, "Uhr-App konnte nicht gestartet werden.", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, context.getString(R.string.error_clock_app_not_started), Toast.LENGTH_LONG).show()
     }
 }
 
@@ -37,7 +37,7 @@ fun startTimer(context: Context) {
     try {
         context.startActivity(clockIntent)
     } catch (e: Exception) {
-        Toast.makeText(context, "Uhr-App konnte nicht gestartet werden.", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, context.getString(R.string.error_clock_app_not_started), Toast.LENGTH_LONG).show()
     }
 }
 
@@ -46,7 +46,7 @@ fun onSwipeRight(context: Context) {
     try {
         context.startActivity(cameraIntent)
     } catch (e: Exception) {
-        Toast.makeText(context, "Kamera konnte nicht gestartet werden", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.error_camera_not_started), Toast.LENGTH_SHORT).show()
     }
 }
 
@@ -55,7 +55,7 @@ fun onSwipeLeft(context: Context) {
     try {
         context.startActivity(telephone)
     } catch (e: Exception) {
-        Toast.makeText(context, "Telefon konnte nicht gestartet werden", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.error_phone_not_started), Toast.LENGTH_SHORT).show()
 
     }
 }
@@ -69,7 +69,7 @@ fun onStartCalendar(context: Context) {
     try {
         context.startActivity(intent)
     } catch (e: Exception) {
-        Toast.makeText(context, "Kalender-App konnte nicht gefunden werden: ${e.message}", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, context.getString(R.string.error_calendar_not_found, e.message), Toast.LENGTH_LONG).show()
     }
 }
 
@@ -93,5 +93,5 @@ fun onRemoveFavorite(context: Context,
     coroutineScope.launch {
         settingsManager.saveAppList(updatedList)
     }
-    Toast.makeText(context, "${appToRemove.label} aus Favoriten entfernt", Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, context.getString(R.string.favorite_removed, appToRemove.label), Toast.LENGTH_SHORT).show()
 }

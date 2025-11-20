@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.copy
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -39,11 +38,10 @@ import com.kittel.ultraminimallauncher.SettingsManager
 
 
 @Composable
-fun SetupScreen(context : Context, events: Events){
+fun AppOverviewScreen(context : Context, events: Events, settingsManager: SettingsManager){
     var searchText by remember { mutableStateOf("") }
     val allApps = remember { loadInstalledApps(context) } // Lade die Apps nur einmal
     val focusRequester = remember { FocusRequester() }
-    val settingsManager = remember { SettingsManager(context) }
     val coroutineScope = rememberCoroutineScope()
     val filteredApps = if (searchText.isBlank()){
         allApps

@@ -1,5 +1,6 @@
 package com.kittel.ultraminimallauncher.components
 
+import android.app.WallpaperManager
 import com.kittel.ultraminimallauncher.SettingsManager
 import android.content.Context
 import android.content.Intent
@@ -45,8 +46,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun DefaultScreen(context : Context, events: Events){
-    val settingsManager = remember { SettingsManager(context) }
+fun DefaultScreen(context : Context, events: Events, settingsManager: SettingsManager){
     val appListState by settingsManager.getAppListFlow().collectAsState(initial = null)
     val appsToDisplay = appListState ?: emptyList()
     val coroutineScope = rememberCoroutineScope() // Um die Speicher-Aktion auszuführen
@@ -67,14 +67,14 @@ fun DefaultScreen(context : Context, events: Events){
                                 onDragStart = {
                                     dragXAxisInitVal = 0f
                                 },
-                                onHorizontalDrag = {change, dragAmount ->
-                                    dragXAxisInitVal+=dragAmount
+                                onHorizontalDrag = { change, dragAmount ->
+                                    dragXAxisInitVal += dragAmount
                                     change.consume()
                                 },
                                 onDragEnd = {
-                                    if (dragXAxisInitVal > swipeXAxisAmount.toPx()){
+                                    if (dragXAxisInitVal > swipeXAxisAmount.toPx()) {
                                         events.onSwipeRight()
-                                    } else if (dragXAxisInitVal < -swipeXAxisAmount.toPx()){
+                                    } else if (dragXAxisInitVal < -swipeXAxisAmount.toPx()) {
                                         events.onSwipeLeft()
                                     }
                                 }
@@ -85,12 +85,12 @@ fun DefaultScreen(context : Context, events: Events){
                                 onDragStart = {
                                     dragYAxisInitVal = 0f
                                 },
-                                onVerticalDrag = {change, dragAmount ->
-                                    dragYAxisInitVal+=dragAmount
+                                onVerticalDrag = { change, dragAmount ->
+                                    dragYAxisInitVal += dragAmount
                                     change.consume()
                                 },
                                 onDragEnd = {
-                                    if (dragYAxisInitVal < -swipeYAxisAmount.toPx()){
+                                    if (dragYAxisInitVal < -swipeYAxisAmount.toPx()) {
                                         events.onScreenChangeToAppGrid()
                                     }
                                 }
@@ -99,7 +99,7 @@ fun DefaultScreen(context : Context, events: Events){
                         launch {
                             detectTapGestures(
                                 onLongPress = {
-                                    //Toast.makeText(context, "blaaaaa", Toast.LENGTH_SHORT).show()
+                                    events.onScreenChangeToConfig()
                                 }
                             )
                         }
@@ -108,21 +108,24 @@ fun DefaultScreen(context : Context, events: Events){
         ) {
             Spacer(modifier = Modifier.height(64.dp))
             Clock(
-                modifier = Modifier.align(Alignment.CenterHorizontally).pointerInput(Unit){
-                    detectTapGestures(onTap = {
-                        events.onStartClock()
-                    }, onDoubleTap = {
-                        events.onStartTimer()
-                    }, onLongPress = {
-                        events.onStartCalendar()
-                    })
-                },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .pointerInput(Unit) {
+                        detectTapGestures(onTap = {
+                            events.onStartClock()
+                        }, onDoubleTap = {
+                            events.onStartTimer()
+                        }, onLongPress = {
+                            events.onStartCalendar()
+                        })
+                    },
                 settingsManager
             )
-            Spacer(modifier = Modifier.height(64.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             AppElementContainer(context,
                 onRemoveFavorite = { appToRemove -> events.onRemoveFavorite(appToRemove , appsToDisplay, settingsManager,coroutineScope) },
-                onAppClick = events.onStartApp
+                onAppClick = events.onStartApp,
+                settingsManager
             )
             Spacer(modifier = Modifier.height(64.dp))
             when(isMyAppDefaultLauncher(context)){
@@ -138,7 +141,8 @@ fun DefaultScreen(context : Context, events: Events){
                                 detectTapGestures(
                                     onTap = {
                                         val intent = Intent(Settings.ACTION_HOME_SETTINGS)
-                                        context.startActivity(intent)                                    },
+                                        context.startActivity(intent)
+                                    },
                                     onLongPress = {
                                         events.onScreenChangeToHome();
                                     }
@@ -173,3 +177,4 @@ private fun isMyAppDefaultLauncher(context: Context): Boolean {
     }
     return context.packageName == resolveInfo.activityInfo.packageName
 }
+

@@ -1,8 +1,5 @@
 package com.kittel.ultraminimallauncher
 
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
@@ -22,12 +19,14 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.kittel.ultraminimallauncher.components.ConfigScreen
 import com.kittel.ultraminimallauncher.components.DefaultScreen
 import com.kittel.ultraminimallauncher.components.Screen
-import com.kittel.ultraminimallauncher.components.SetupScreen
+import com.kittel.ultraminimallauncher.components.AppOverviewScreen
 import com.kittel.ultraminimallauncher.ui.theme.MyLauncherTheme
 
 
 class MainActivity : ComponentActivity() {
+    private lateinit var settingsManager: SettingsManager
     override fun onCreate(savedInstanceState: Bundle?) {
+        settingsManager = SettingsManager(applicationContext)
         super.onCreate(savedInstanceState)
         var currentScreen: Screen by  mutableStateOf(Screen.Home)
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -50,6 +49,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     HomeScreen(
                         currentScreen = currentScreen,
+                        settingsManager,
                         onScreenChange = { newScreen ->
                         currentScreen = newScreen
                     } )
@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreen(currentScreen: Screen, onScreenChange: (Screen) -> Unit) {
+fun HomeScreen(currentScreen: Screen,settingsManager: SettingsManager,  onScreenChange: (Screen) -> Unit) {
     val context = LocalContext.current
     val events = Events(
         onScreenChangeToAppGrid = { onScreenChange(Screen.AppGrid) },
@@ -77,12 +77,13 @@ fun HomeScreen(currentScreen: Screen, onScreenChange: (Screen) -> Unit) {
             appsToDisplay,
             settingsManager,
             coroutineScope
-        ) }
+        ) },
+        onScreenChangeToConfig = { onScreenChange(Screen.Config) },
     )
     when (currentScreen) {
-        Screen.Home ->  DefaultScreen(context, events)
-        Screen.AppGrid -> SetupScreen(context, events)
-        Screen.Config -> ConfigScreen(context, events)
+        Screen.Home ->  DefaultScreen(context, events, settingsManager)
+        Screen.AppGrid -> AppOverviewScreen(context, events, settingsManager)
+        Screen.Config -> ConfigScreen(context, events, settingsManager)
     }
 }
 

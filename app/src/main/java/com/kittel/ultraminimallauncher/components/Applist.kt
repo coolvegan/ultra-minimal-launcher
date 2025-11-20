@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.kittel.ultraminimallauncher.Events
 import com.kittel.ultraminimallauncher.R
 import com.kittel.ultraminimallauncher.SettingsManager
@@ -72,7 +73,8 @@ fun AppList(
                             }
                             Toast.makeText(context, context.getString(R.string.added_to_favorites, appToAdd.label), Toast.LENGTH_SHORT).show()
                         }
-                    }, events = events
+                    }, events = events,
+                    settingsManager
                 )
             }
         }
@@ -85,12 +87,15 @@ private fun AppListItem(
     appInfo: AppInfo,
     onAddToFavorites: () -> Unit,
     events: Events,
+    settingsManager: SettingsManager
 ) {
+    val appTextSize by settingsManager.appTextSizeFlow.collectAsState(initial = 16.0f)
     var isMenuVisible by remember { mutableStateOf(false) }
     val context = LocalContext.current
     Box {
         Text(
             text = appInfo.label,
+            fontSize = appTextSize.sp,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier
                 .fillMaxWidth()

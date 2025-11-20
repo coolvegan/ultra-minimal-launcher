@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,7 +26,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.kittel.ultraminimallauncher.R
+import com.kittel.ultraminimallauncher.SettingsManager
 
 @Composable
 fun AppElement(
@@ -33,7 +36,9 @@ fun AppElement(
     onAppClick: (String) -> Unit,
     onRemoveFavorite: (AppInfo) -> Unit,
     modifier: Modifier = Modifier,
+    settingsManager: SettingsManager
 )  {
+    val appTextSize by settingsManager.appTextSizeFlow.collectAsState(initial = 16.0f)
     var isMenuVisible by remember { mutableStateOf(false) }
     Box(modifier = Modifier) {
         Column(
@@ -50,11 +55,14 @@ fun AppElement(
             Text(
                 text = appInfo.label,
                 color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
+                maxLines = when(appTextSize){
+                    in 8f..16.0f -> 1
+                    else -> 2
+                },
                 overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodyMedium,
+                fontSize = appTextSize.sp,
                 modifier = Modifier.width(70.dp),
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Center
             )
         }
     }

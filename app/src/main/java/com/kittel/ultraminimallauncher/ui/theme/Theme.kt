@@ -1,6 +1,7 @@
 package com.kittel.ultraminimallauncher.ui.theme
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
@@ -15,7 +16,7 @@ private val LightColorScheme = lightColorScheme(
 
 
 // DAS IST DIE ENTSCHEIDENDE FARBPALETTE
-private val DarkColorScheme = lightColorScheme(
+private val DarkColorScheme = darkColorScheme(
     primary = White,
     background = Black,        // HINTERGRUND = SCHWARZ
     surface = Black,

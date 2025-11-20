@@ -8,6 +8,7 @@ import android.provider.CalendarContract
 import android.provider.MediaStore
 import android.widget.Toast
 import com.kittel.ultraminimallauncher.components.AppInfo
+import com.kittel.ultraminimallauncher.components.Screen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -20,7 +21,8 @@ data class Events(
     val onSwipeRight: () -> Unit ,
     val onStartCalendar: () -> Unit,
     val onStartApp: (String) -> Unit,
-    val onRemoveFavorite: (AppInfo, List<AppInfo>, SettingsManager, CoroutineScope) -> Unit
+    val onRemoveFavorite: (AppInfo, List<AppInfo>, SettingsManager, CoroutineScope) -> Unit,
+    var onScreenChangeToConfig: () -> Unit
 )
 
 fun startClock(context: Context) {

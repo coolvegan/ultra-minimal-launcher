@@ -26,6 +26,7 @@ fun Clock(modifier: Modifier = Modifier, settingsManager: SettingsManager) {
     var currentDate by remember { mutableStateOf("") }
 
     val clockTextSize by settingsManager.clockTextSizeFlow.collectAsState(initial = 40.0f)
+    val dateTextSize by settingsManager.dateTextSizeFlow.collectAsState(initial = 20.0f)
     val isGerman = Locale.getDefault().language == "de"
     val selectedDatePattern = if (isGerman) "dd.MM.yyyy" else "MM/dd/yyyy"
     val selectedTimePattern = if (isGerman) "HH:mm" else "h:mm a"
@@ -48,9 +49,9 @@ fun Clock(modifier: Modifier = Modifier, settingsManager: SettingsManager) {
             text = currentTime,
             fontSize = clockTextSize.sp,
             color = Color.White,
-            modifier = modifier
         )
         Text(
+            fontSize = dateTextSize.sp,
             text = currentDate,
             style = MaterialTheme.typography.bodySmall, // Etwas kleiner für die Hierarchie
             color = Color.White

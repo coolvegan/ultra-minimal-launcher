@@ -29,10 +29,12 @@ import androidx.compose.ui.unit.dp
 import com.kittel.ultraminimallauncher.LocalAppList
 import androidx.compose.runtime.key
 
-
 @Composable
-fun ElementContainer(context: Context,
-                     onRemoveFavorite: (AppInfo) -> Unit){
+fun AppElementContainer(
+    context: Context,
+    onRemoveFavorite: (AppInfo) -> Unit,
+    onAppClick: (String) -> Unit
+){
     val list = LocalAppList.current
     if (list.isNullOrEmpty()){
         return
@@ -45,65 +47,14 @@ fun ElementContainer(context: Context,
        ){
            appsInRow.forEach { appInfo ->
                key(appInfo.packageName) {
-                   AppIcon(
+                   AppElement(
                        appInfo = appInfo,
-                       onAppClick = { packageName ->
-                           val launchIntent =
-                               context.packageManager.getLaunchIntentForPackage(packageName)
-                           if (launchIntent != null) {
-                               context.startActivity(launchIntent)
-                           }
-                       },
+                       onAppClick = onAppClick,
                        onRemoveFavorite = onRemoveFavorite,
                        modifier = Modifier.padding(16.dp)
                    )
                }
            }
        }
-    }
-}
-
-@Composable
-fun AppIcon(
-    appInfo: AppInfo,
-    onAppClick: (String) -> Unit,
-    onRemoveFavorite: (AppInfo) -> Unit,
-    modifier: Modifier = Modifier
-)  {
-    var isMenuVisible by remember { mutableStateOf(false) }
-    Box(modifier = Modifier) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.pointerInput(Unit) {
-                detectTapGestures(
-                    onTap = { onAppClick(appInfo.packageName) },
-                    onLongPress = { isMenuVisible = true } // Menü bei langem Klick öffnen
-                )
-
-            }
-        ) {
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = appInfo.label,
-                color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.width(70.dp),
-                textAlign = TextAlign.Center,
-            )
-        }
-    }
-    DropdownMenu(
-      expanded = isMenuVisible,
-      onDismissRequest = { isMenuVisible = false}
-    ) {
-        DropdownMenuItem(
-            text = { Text("Aus Favoriten entfernen") },
-            onClick = {
-                onRemoveFavorite(appInfo)
-                isMenuVisible = false
-            }
-        )
     }
 }

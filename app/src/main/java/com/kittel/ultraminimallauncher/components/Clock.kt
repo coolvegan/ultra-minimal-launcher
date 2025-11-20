@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -12,16 +13,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
+import com.kittel.ultraminimallauncher.SettingsManager
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 @Composable
-fun Clock(modifier: Modifier = Modifier) {
+fun Clock(modifier: Modifier = Modifier, settingsManager: SettingsManager) {
     var currentTime by remember { mutableStateOf("") }
     var currentDate by remember { mutableStateOf("") }
 
+    val clockTextSize by settingsManager.clockTextSizeFlow.collectAsState(initial = 40.0f)
     val isGerman = Locale.getDefault().language == "de"
     val selectedDatePattern = if (isGerman) "dd.MM.yyyy" else "MM/dd/yyyy"
     val selectedTimePattern = if (isGerman) "HH:mm" else "h:mm a"
@@ -42,7 +46,7 @@ fun Clock(modifier: Modifier = Modifier) {
     ) {
         Text(
             text = currentTime,
-            style = MaterialTheme.typography.headlineLarge,
+            fontSize = clockTextSize.sp,
             color = Color.White,
             modifier = modifier
         )

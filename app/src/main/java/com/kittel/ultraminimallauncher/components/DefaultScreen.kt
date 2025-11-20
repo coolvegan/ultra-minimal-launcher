@@ -2,9 +2,9 @@ package com.kittel.ultraminimallauncher.components
 
 import com.kittel.ultraminimallauncher.SettingsManager
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.kittel.ultraminimallauncher.Events
 import com.kittel.ultraminimallauncher.LocalAppList
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
@@ -34,32 +35,54 @@ fun DefaultScreen(context : Context, events: Events){
     val appListState by settingsManager.getAppListFlow().collectAsState(initial = null)
     val appsToDisplay = appListState ?: emptyList()
     val coroutineScope = rememberCoroutineScope() // Um die Speicher-Aktion auszuführen
-    var dragInitVal by remember { mutableFloatStateOf(0f) }
+    var dragXAxisInitVal by remember { mutableFloatStateOf(0f) }
+    var dragYAxisInitVal by remember { mutableFloatStateOf(0f) }
     val configuration = LocalConfiguration.current
-    val swipeAmount = configuration.screenWidthDp.dp / 3
+    val swipeXAxisAmount = configuration.screenWidthDp.dp / 3
+    val swipeYAxisAmount = configuration.screenHeightDp.dp / 4
     CompositionLocalProvider(LocalAppList provides appsToDisplay) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 8.dp)
                 .pointerInput(Unit) {
-                    detectHorizontalDragGestures(
-                        onDragStart = {
-                            dragInitVal = 0f
-                        },
-                        onHorizontalDrag = {change, dragAmount ->
-                            dragInitVal+=dragAmount
-                            change.consume()
-                        },
-                        onDragEnd = {
-                            if (dragInitVal > swipeAmount.toPx()){
-                                events.onSwipeRight()
-                            } else if (dragInitVal < -swipeAmount.toPx()){
-                                events.onSwipeLeft()
-                            }
+                    coroutineScope {
+                        launch {
+                            detectHorizontalDragGestures(
+                                onDragStart = {
+                                    dragXAxisInitVal = 0f
+                                },
+                                onHorizontalDrag = {change, dragAmount ->
+                                    dragXAxisInitVal+=dragAmount
+                                    change.consume()
+                                },
+                                onDragEnd = {
+                                    if (dragXAxisInitVal > swipeXAxisAmount.toPx()){
+                                        events.onSwipeRight()
+                                    } else if (dragXAxisInitVal < -swipeXAxisAmount.toPx()){
+                                        events.onSwipeLeft()
+                                    }
+                                }
+                            )
                         }
-                    )
-                },
+                        launch {
+                            detectVerticalDragGestures(
+                                onDragStart = {
+                                    dragYAxisInitVal = 0f
+                                },
+                                onVerticalDrag = {change, dragAmount ->
+                                    dragYAxisInitVal+=dragAmount
+                                    change.consume()
+                                },
+                                onDragEnd = {
+                                    if (dragYAxisInitVal < -swipeYAxisAmount.toPx()){
+                                        events.onScreenChangeToAppGrid()
+                                    }
+                                }
+                            )
+                        }
+                    }
+                }
         ) {
             Spacer(modifier = Modifier.height(64.dp))
             Clock(
@@ -71,34 +94,15 @@ fun DefaultScreen(context : Context, events: Events){
                     }, onLongPress = {
                         events.onStartCalendar()
                     })
-                }
+                },
+                settingsManager
             )
             Spacer(modifier = Modifier.height(64.dp))
-            ElementContainer(context,
-                onRemoveFavorite = { appToRemove ->
-                    val updatedList = appsToDisplay.filter {
-                        it.packageName != appToRemove.packageName
-                    }
-
-                    coroutineScope.launch {
-                        settingsManager.saveAppList(updatedList)
-                    }
-                    Toast.makeText(context, "${appToRemove.label} aus Favoriten entfernt", Toast.LENGTH_SHORT).show()
-                })
-            Spacer(modifier = Modifier.height(64.dp))
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(0.3f)
-                    .pointerInput(Unit) {
-                        detectTapGestures(
-                            onLongPress = {
-                                events.onScreenChangeToAppGrid();
-                            }
-                        )
-                    }
+            AppElementContainer(context,
+                onRemoveFavorite = { appToRemove -> events.onRemoveFavorite(appToRemove , appsToDisplay, settingsManager,coroutineScope) },
+                onAppClick = events.onStartApp
             )
-
+            Spacer(modifier = Modifier.height(64.dp))
         }
     }
 }

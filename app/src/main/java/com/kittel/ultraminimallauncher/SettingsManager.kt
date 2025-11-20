@@ -2,6 +2,7 @@ package com.kittel.ultraminimallauncher
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -14,10 +15,21 @@ import kotlinx.coroutines.flow.map
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "launcher_settings")
 public class SettingsManager(private val context: Context) {
     private val gson = Gson()
+    private  val APP_LIST_KEY = stringPreferencesKey("app_list_json")
+    private  val CLOCK_TEXT_SIZE_KEY = stringPreferencesKey("clock_text_size")
 
-    companion object {
-              val APP_LIST_KEY = stringPreferencesKey("app_list_json")
+    //40.0f Std für headlineLarge
+    val clockTextSizeFlow: Flow<Float> = context.dataStore.data.map { preferences ->
+        preferences[CLOCK_TEXT_SIZE_KEY]?.toFloatOrNull() ?: 40f
     }
+
+    suspend fun setClockTextSize(size: Float){
+        context.dataStore.edit { settings -> {
+            settings[CLOCK_TEXT_SIZE_KEY] = size.toString()
+        } }
+    }
+
+
 
     suspend fun saveFavoriteApp(key: Preferences.Key<String>, appInfo: AppInfo) {
         val appInfoJson = gson.toJson(appInfo)

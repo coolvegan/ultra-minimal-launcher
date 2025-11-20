@@ -18,10 +18,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-
+import com.kittel.ultraminimallauncher.R
 
 @Composable
 fun AppElement(
@@ -59,7 +60,7 @@ fun AppElement(
         onDismissRequest = { isMenuVisible = false}
     ) {
         DropdownMenuItem(
-            text = { Text("Aus Favoriten entfernen") },
+            text = { Text(text = stringResource(R.string.remove_from_favorites)) },
             onClick = {
                 onRemoveFavorite(appInfo)
                 isMenuVisible = false

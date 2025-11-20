@@ -1,2 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Ultra Minimal Launcher</string>
+    <string name="long_press_to_home">Hier lange Drücken führt zum Homescreen</string>
+    <string name="error_clock_app_not_started">Uhr-App konnte nicht gestartet werden.</string>
+    <string name="error_camera_not_started">Kamera konnte nicht gestartet werden.</string>
+    <string name="error_phone_not_started">Telefon konnte nicht gestartet werden.</string>
+    <string name="error_calendar_not_found">Kalender-App konnte nicht gefunden werden: %s</string>
+    <string name="favorite_removed">%s aus Favoriten entfernt</string>
+    <string name="is_already_a_favorite">%s ist bereits ein Favorit</string>
+    <string name="added_to_favorites">%s zu Favoriten hinzugefügt</string>
+    <string name="could_not_be_started">%s konnte nicht gestartet werden.</string>
+    <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
+    <string name="remove_from_favorites">"Aus Favoriten entfernen"</string>
+</resources>

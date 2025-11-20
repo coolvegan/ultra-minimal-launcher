@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Ultra Minimal Launcher</string>
+    <string name="long_press_to_home">Long press to go home</string>
+    <string name="error_clock_app_not_started">Could not start Clock app.</string>
+    <string name="error_camera_not_started">Could not start Camera.</string>
+    <string name="error_phone_not_started">Could not start Phone.</string>
+    <string name="error_calendar_not_found">Could not find Calendar app: %s</string>
+    <string name="favorite_removed">Removed %s from favorites</string>
+    <string name="is_already_a_favorite">%s is already a favorite</string>
+    <string name="added_to_favorites">Added %s to favorites</string>
+    <string name="could_not_be_started">Could not start %s</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="remove_from_favorites">"Remove from favorites"</string>
 </resources>

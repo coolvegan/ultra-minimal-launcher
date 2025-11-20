@@ -103,6 +103,19 @@ fun DefaultScreen(context : Context, events: Events){
                 onAppClick = events.onStartApp
             )
             Spacer(modifier = Modifier.height(64.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(0.3f)
+                    .pointerInput(Unit) {
+                        detectTapGestures(
+                            onLongPress = {
+                                events.onScreenChangeToAppGrid();
+                            }
+                        )
+                    }
+            )
+
         }
     }
 }

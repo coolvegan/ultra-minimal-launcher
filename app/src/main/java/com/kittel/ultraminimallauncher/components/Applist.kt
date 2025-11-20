@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.kittel.ultraminimallauncher.Events
+import com.kittel.ultraminimallauncher.R
 import com.kittel.ultraminimallauncher.SettingsManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -61,14 +62,14 @@ fun AppList(
                         val currentFavorites = favoriteAppState ?: emptyList()
 
                         if (currentFavorites.any { it.packageName == appToAdd.packageName}){
-                            Toast.makeText(context, "${appToAdd.label} ist bereits ein Favorit", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.is_already_a_favorite, appToAdd.label), Toast.LENGTH_SHORT).show()
                         } else {
                             val updatesFavorites = currentFavorites + appToAdd
                             coroutineScope.launch {
                                 settingsManager.saveAppList(updatesFavorites)
                                 events.onScreenChangeToHome()
                             }
-                            Toast.makeText(context, "${appToAdd.label} zu Favoriten hinzugefügt", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.added_to_favorites, appToAdd.label), Toast.LENGTH_SHORT).show()
                         }
                     }, events = events
                 )
@@ -104,7 +105,7 @@ private fun AppListItem(
                             } else {
                                 Toast.makeText(
                                     context,
-                                    "${appInfo.label} konnte nicht gestartet werden.",
+                                    context.getString(R.string.could_not_be_started, appInfo.label),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -123,7 +124,7 @@ private fun AppListItem(
             modifier = Modifier.background(MaterialTheme.colorScheme.surface)
         ) {
             DropdownMenuItem(
-                text = { Text("Zu Favoriten hinzufügen") },
+                text = { Text(context.getString(R.string.add_to_favorites)) },
                 onClick = {
                     onAddToFavorites()
                     isMenuVisible = false

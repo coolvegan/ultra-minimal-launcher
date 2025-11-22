@@ -12,4 +12,11 @@
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">"Remove from favorites"</string>
     <string name="add_as_default_launcher">Add as default launcher</string>
+    <string name="change_wallpaper">Change Wallpaper</string>
+    <string name="select_wallpaper_with">Select wallpaper with</string>
+    <string name="adjust_clock_size">Adjust clock size</string>
+    <string name="adjust_date_size">Adjust date size</string>
+    <string name="adjust_app_font_size">Adjust app font size</string>
+    <string name="adjust_app_column_count">Adjust app column count</string>
+    <string name="adjust_app_text_alignment">Adjust app text alignment</string>
 </resources>

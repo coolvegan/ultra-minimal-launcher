@@ -13,8 +13,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.kittel.ultraminimallauncher.SettingsManager
+import com.kittel.ultraminimallauncher.ui.theme.textShadow
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -49,12 +51,17 @@ fun Clock(modifier: Modifier = Modifier, settingsManager: SettingsManager) {
             text = currentTime,
             fontSize = clockTextSize.sp,
             color = Color.White,
+            style = TextStyle(
+                shadow = textShadow
+            )
         )
         Text(
             fontSize = dateTextSize.sp,
             text = currentDate,
-            style = MaterialTheme.typography.bodySmall, // Etwas kleiner für die Hierarchie
-            color = Color.White
+            color = Color.White,
+            style = TextStyle(
+                shadow = textShadow
+            )
         )
     }
 }

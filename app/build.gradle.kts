@@ -78,6 +78,7 @@ android {
     }
 }
 dependencies {
+    implementation("androidx.compose.material:material-icons-extended")
     implementation("com.google.accompanist:accompanist-drawablepainter:0.32.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

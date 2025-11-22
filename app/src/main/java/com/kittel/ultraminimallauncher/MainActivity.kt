@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -45,7 +46,8 @@ class MainActivity : ComponentActivity() {
             MyLauncherTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color.Black
+                    //Notwendig für die Anzeige des System-Wallpaper
+                    color = Color.Transparent
                 ) {
                     HomeScreen(
                         currentScreen = currentScreen,

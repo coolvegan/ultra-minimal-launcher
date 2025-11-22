@@ -1,12 +1,17 @@
 package com.kittel.ultraminimallauncher.components
 
 import android.content.Context
+import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -19,10 +24,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.kittel.ultraminimallauncher.Events
 import com.kittel.ultraminimallauncher.LocalAppList
+import com.kittel.ultraminimallauncher.R
 import com.kittel.ultraminimallauncher.SettingsManager
 import kotlinx.coroutines.launch
 
@@ -49,32 +56,36 @@ fun ConfigScreen(context : Context, events: Events, settingsManager: SettingsMan
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        SettingClock("Uhrengröße anpassen", clockTextSize, onValueChange = {
+        SettingAppBackgroundCard(stringResource(id = R.string.change_wallpaper), onButtonClick = {
+            val intent = Intent(Intent.ACTION_SET_WALLPAPER)
+            val chooser = Intent.createChooser(intent, context.getString(R.string.select_wallpaper_with))
+            context.startActivity(chooser)
+        } )
+        SettingClock(stringResource(id = R.string.adjust_clock_size), clockTextSize, onValueChange = {
             coroutineScope.launch { settingsManager.setClockTextSize(it) }
         })
-        SettingDateCard("Datumsgröße anpassen", dateTextSize, onValueChange = {
+        SettingDateCard(stringResource(id = R.string.adjust_date_size), dateTextSize, onValueChange = {
             coroutineScope.launch { settingsManager.setDateTextSize(it) }
         })
         Clock(modifier = Modifier.fillMaxWidth(), settingsManager)
-        SettingAppTextsizeCard("App Fontgröße anpassen", sliderValue = appTextSize, onValueChange = {
+        SettingAppTextsizeCard(stringResource(id = R.string.adjust_app_font_size), sliderValue = appTextSize, onValueChange = {
             coroutineScope.launch { settingsManager.setAppTextSize(it) }
         })
-        SettingAppColumnsizeCard("App Spalten anzahl anpassen", sliderValue = appColumnSize, onValueChange = {
+        SettingAppColumnsizeCard(stringResource(id = R.string.adjust_app_column_count), sliderValue = appColumnSize, onValueChange = {
             coroutineScope.launch { settingsManager.setAppColumnSize(it) }
         })
-        SettingAppTextAlignmentCard("App Textalignement anpassen", sliderValue = appColumnTextAlignment, onValueChange = {
+        SettingAppTextAlignmentCard(stringResource(id = R.string.adjust_app_text_alignment), sliderValue = appColumnTextAlignment, onValueChange = {
             coroutineScope.launch { settingsManager.setAppColumnTextAlignment(it) }
         })
         CompositionLocalProvider(LocalAppList provides dummyAppsForPreview) {
-            // 3. Jetzt rufen wir deinen ECHTEN AppElementContainer auf.
-            // Er wird die `dummyAppsForPreview`-Liste anstelle der echten verwenden.
             AppElementContainer(
                 context = context,
-                onRemoveFavorite = {}, // Leere Funktion für die Vorschau
-                onAppClick = {},       // Leere Funktion für die Vorschau
+                onRemoveFavorite = {},
+                onAppClick = {},
                 settingsManager = settingsManager
             )
         }
+
     }
 }
 
@@ -106,7 +117,7 @@ fun SettingClock(
                 onValueChange = {
                     onValueChange(it)
                 },
-                valueRange = 16f..96f, // sinnvoller Bereich für die Schriftgröße in sp
+                valueRange = 16f..96f,
                 steps = 8
             )
         }
@@ -142,7 +153,7 @@ fun SettingDateCard(
                 onValueChange = {
                     onValueChange(it)
                 },
-                valueRange = 8f..64f, // sinnvoller Bereich für die Schriftgröße in sp
+                valueRange = 8f..64f,
                 steps = 8
             )
         }
@@ -178,7 +189,7 @@ fun SettingAppTextsizeCard(
                 onValueChange = {
                     onValueChange(it)
                 },
-                valueRange = 8f..32f, // sinnvoller Bereich für die Schriftgröße in sp
+                valueRange = 8f..32f,
                 steps = 16
             )
         }
@@ -214,7 +225,7 @@ fun SettingAppColumnsizeCard(
                 onValueChange = {
                     onValueChange(it.toInt())
                 },
-                valueRange = 1f..4f, // sinnvoller Bereich für die Schriftgröße in sp
+                valueRange = 1f..4f,
                 steps = 4
             )
         }
@@ -252,6 +263,42 @@ fun SettingAppTextAlignmentCard(
                 valueRange = 0f..5f,
                 steps = 5
             )
+        }
+    }
+}
+
+
+@Composable
+fun SettingAppBackgroundCard(
+    headline: String,
+    onButtonClick: () -> Unit,
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerLowest
+        )
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // 1. Text
+            Text(
+                text = headline,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
+            )
+
+            Spacer(Modifier.height(8.dp))
+            Button(
+                onClick = onButtonClick,
+                modifier = Modifier.fillMaxWidth(0.8f)
+            ) {
+            }
         }
     }
 }

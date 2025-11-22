@@ -27,12 +27,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kittel.ultraminimallauncher.Events
 import com.kittel.ultraminimallauncher.R
 import com.kittel.ultraminimallauncher.SettingsManager
+import com.kittel.ultraminimallauncher.ui.theme.textShadow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -94,6 +96,9 @@ private fun AppListItem(
     val context = LocalContext.current
     Box {
         Text(
+            style = TextStyle(
+                shadow = textShadow
+            ),
             text = appInfo.label,
             fontSize = appTextSize.sp,
             color = MaterialTheme.colorScheme.onBackground,

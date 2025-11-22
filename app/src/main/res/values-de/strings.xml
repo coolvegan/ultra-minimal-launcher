@@ -12,4 +12,11 @@
     <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
     <string name="remove_from_favorites">"Aus Favoriten entfernen"</string>
     <string name="add_as_default_launcher">Als Standard-Launcher hinzufügen</string>
+    <string name="change_wallpaper">Hintergrundbild ändern</string>
+    <string name="select_wallpaper_with">Hintergrundbild auswählen mit</string>
+    <string name="adjust_clock_size">Uhrengröße anpassen</string>
+    <string name="adjust_date_size">Datumsgröße anpassen</string>
+    <string name="adjust_app_font_size">App-Schriftgröße anpassen</string>
+    <string name="adjust_app_column_count">Anzahl der App-Spalten anpassen</string>
+    <string name="adjust_app_text_alignment">App-Textausrichtung anpassen</string>
 </resources>

@@ -23,12 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kittel.ultraminimallauncher.R
 import com.kittel.ultraminimallauncher.SettingsManager
+import com.kittel.ultraminimallauncher.ui.theme.textShadow
 
 @Composable
 fun AppElement(
@@ -62,7 +64,10 @@ fun AppElement(
                 overflow = TextOverflow.Ellipsis,
                 fontSize = appTextSize.sp,
                 modifier = Modifier.width(70.dp),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = TextStyle(
+                    shadow = textShadow
+                )
             )
         }
     }

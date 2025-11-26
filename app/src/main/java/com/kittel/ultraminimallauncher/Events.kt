@@ -22,7 +22,8 @@ data class Events(
     val onStartCalendar: () -> Unit,
     val onStartApp: (String) -> Unit,
     val onRemoveFavorite: (AppInfo, List<AppInfo>, SettingsManager, CoroutineScope) -> Unit,
-    var onScreenChangeToConfig: () -> Unit
+    var onScreenChangeToConfig: () -> Unit,
+    val onSetWallpaper: () -> Unit
 )
 
 fun startClock(context: Context) {

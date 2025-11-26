@@ -1,5 +1,6 @@
 package com.kittel.ultraminimallauncher
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
@@ -81,6 +82,11 @@ fun HomeScreen(currentScreen: Screen,settingsManager: SettingsManager,  onScreen
             coroutineScope
         ) },
         onScreenChangeToConfig = { onScreenChange(Screen.Config) },
+        onSetWallpaper = {
+            val intent = Intent(Intent.ACTION_SET_WALLPAPER)
+            val chooser = Intent.createChooser(intent, context.getString(R.string.select_wallpaper_with))
+            context.startActivity(chooser)
+        }
     )
     when (currentScreen) {
         Screen.Home ->  DefaultScreen(context, events, settingsManager)

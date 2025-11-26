@@ -21,6 +21,8 @@
             android:exported="true"
             android:theme="@style/Theme.MyLauncher"
             android:launchMode="singleTask"
+            android:clearTaskOnLaunch="true"
+            android:taskAffinity=""
             android:stateNotNeeded="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

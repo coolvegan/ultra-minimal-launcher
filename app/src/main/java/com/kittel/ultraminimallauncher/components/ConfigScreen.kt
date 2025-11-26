@@ -57,9 +57,7 @@ fun ConfigScreen(context : Context, events: Events, settingsManager: SettingsMan
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         SettingAppBackgroundCard(stringResource(id = R.string.change_wallpaper), onButtonClick = {
-            val intent = Intent(Intent.ACTION_SET_WALLPAPER)
-            val chooser = Intent.createChooser(intent, context.getString(R.string.select_wallpaper_with))
-            context.startActivity(chooser)
+            events.onSetWallpaper()
         } )
         SettingClock(stringResource(id = R.string.adjust_clock_size), clockTextSize, onValueChange = {
             coroutineScope.launch { settingsManager.setClockTextSize(it) }
